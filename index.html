@@ -30,6 +30,7 @@
     <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
     <script>
         // 초기 다크모드 설정 (깜빡임 방지)
@@ -109,9 +110,74 @@
             <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl font-light">
                 비싼 공유오피스 대신, 분위기 좋은 카페에서<br class="hidden sm:block"> 생산적인 시간을 보내세요.
             </p>
-            <a href="#calculator" class="bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-8 rounded-full text-lg transition shadow-lg inline-flex items-center gap-2">
-                가격 알아보기 <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            <a href="#waitlist" class="bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-8 rounded-full text-lg transition shadow-lg inline-flex items-center gap-2">
+                사전예약 50% 할인받기 <i data-lucide="arrow-right" class="w-5 h-5"></i>
             </a>
+        </div>
+    </section>
+
+    <!-- Waitlist Section -->
+    <section id="waitlist" class="py-24 bg-gradient-to-br from-brand-900 to-brand-800 text-white relative overflow-hidden transition-colors duration-300">
+        <div class="absolute inset-0 bg-black/10"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="bg-brand-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4 inline-block uppercase tracking-wider">Early Bird Open</span>
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-6 text-white">카페브릿지 사전예약</h2>
+            <p class="text-xl text-brand-100 mb-10 font-light">
+                지금 사전예약하시면 오픈 시 <strong class="text-white font-bold">첫 이용 50% 할인 쿠폰</strong>을 드립니다.
+            </p>
+            
+            <div class="bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-3xl shadow-2xl max-w-2xl mx-auto">
+                <div id="waitlistFormContainer">
+                    <div class="flex items-center justify-center gap-2 mb-8 text-brand-50">
+                        <span class="relative flex h-3 w-3">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </span>
+                        <span>현재 <strong id="waitlistCount" class="text-3xl font-bold text-white leading-none">0</strong>명이 사전예약했어요!</span>
+                    </div>
+                
+                    <form id="waitlistForm" class="space-y-4 text-left">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-brand-100 mb-1">이름</label>
+                                <input type="text" name="name" required placeholder="홍길동" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-brand-100 mb-1">이메일</label>
+                                <input type="email" name="email" required placeholder="hello@example.com" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-brand-100 mb-1">어떻게 알게 되셨나요?</label>
+                            <select name="source" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition appearance-none [&>option]:text-gray-900">
+                                <option value="" disabled selected class="text-gray-500">선택해주세요</option>
+                                <option value="SNS">SNS (인스타그램, 페이스북 등)</option>
+                                <option value="지인추천">지인 추천</option>
+                                <option value="검색">검색 (네이버, 구글)</option>
+                                <option value="카페홍보물">제휴 카페 홍보물</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </div>
+                        <p id="waitlistError" class="text-red-300 text-sm hidden font-bold"></p>
+                        <button type="submit" id="waitlistSubmit" class="w-full bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 rounded-xl transition shadow-xl shadow-brand-500/30 flex items-center justify-center gap-2 mt-2 transform hover:-translate-y-0.5">
+                            <span>사전예약하고 할인받기</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <div id="waitlistSuccess" class="hidden flex-col items-center justify-center py-8">
+                    <div class="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4">
+                        <i data-lucide="check" class="text-green-400 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-2">사전예약이 완료되었습니다!</h3>
+                    <p class="text-brand-100 mb-6">오픈 시 안내 메일과 할인 쿠폰을 보내드릴게요.</p>
+                    <div class="inline-block bg-white/10 rounded-2xl px-8 py-5 border border-white/20">
+                        <span class="block text-sm text-brand-200 mb-1">나의 대기 순번</span>
+                        <span class="block text-5xl font-extrabold text-white">#<span id="waitlistPosition">0</span></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -244,9 +310,9 @@
                                     견적 저장 <i data-lucide="bookmark-plus" class="w-4 h-4"></i>
                                 </button>
                             </div>
-                            <button type="button" class="w-full bg-brand-500 hover:bg-brand-600 text-white py-4 rounded-xl font-bold text-lg transition shadow-xl shadow-brand-500/30 flex justify-center items-center gap-2 transform hover:-translate-y-0.5">
-                                이 조건으로 문의하기 <i data-lucide="send-h" class="w-5 h-5"></i>
-                            </button>
+                            <a href="#waitlist" class="w-full bg-brand-500 hover:bg-brand-600 text-white py-4 rounded-xl font-bold text-lg transition shadow-xl shadow-brand-500/30 flex justify-center items-center gap-2 transform hover:-translate-y-0.5">
+                                이 조건으로 사전예약하기 <i data-lucide="send-h" class="w-5 h-5"></i>
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -419,17 +485,17 @@
         }
 
         // Animate counter
-        function animateValue(obj, start, end, duration) {
+        function animateValue(obj, start, end, duration, suffix = '원') {
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
                 const currentVal = Math.floor(progress * (end - start) + start);
-                obj.textContent = new Intl.NumberFormat('ko-KR').format(currentVal) + '원';
+                obj.textContent = new Intl.NumberFormat('ko-KR').format(currentVal) + suffix;
                 if (progress < 1) {
                     window.requestAnimationFrame(step);
                 } else {
-                    obj.textContent = new Intl.NumberFormat('ko-KR').format(end) + '원';
+                    obj.textContent = new Intl.NumberFormat('ko-KR').format(end) + suffix;
                 }
             };
             window.requestAnimationFrame(step);
@@ -522,6 +588,95 @@
         // Init
         updateDisplay();
         loadRecent();
+
+        // Supabase & Waitlist Logic
+        const supabaseUrl = 'https://ivfualazzdejhcbzeuvg.supabase.co';
+        const supabaseKey = 'sb_publishable_xkTlfROVN5OLxs-t_LjT2g_17J4bIgg';
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+        const waitlistFormContainer = document.getElementById('waitlistFormContainer');
+        const waitlistForm = document.getElementById('waitlistForm');
+        const waitlistSuccess = document.getElementById('waitlistSuccess');
+        const waitlistCount = document.getElementById('waitlistCount');
+        const waitlistPosition = document.getElementById('waitlistPosition');
+        const waitlistError = document.getElementById('waitlistError');
+        const waitlistSubmit = document.getElementById('waitlistSubmit');
+
+        async function fetchWaitlistCount() {
+            try {
+                const { data, error } = await supabaseClient.rpc('get_waitlist_count');
+                if (!error && data !== null) {
+                    animateValue(waitlistCount, 0, data, 1000, '');
+                }
+            } catch (err) {
+                console.error('Count fetch error:', err);
+            }
+        }
+        
+        if (waitlistCount) fetchWaitlistCount();
+
+        if (waitlistForm) {
+            waitlistForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                waitlistError.classList.add('hidden');
+                
+                const formData = new FormData(waitlistForm);
+                const name = formData.get('name').trim();
+                const email = formData.get('email').trim();
+                const source = formData.get('source');
+
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    waitlistError.textContent = "유효한 이메일 주소를 입력해주세요.";
+                    waitlistError.classList.remove('hidden');
+                    return;
+                }
+
+                const originalBtnText = waitlistSubmit.innerHTML;
+                waitlistSubmit.disabled = true;
+                waitlistSubmit.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin mx-auto block"></i>';
+                lucide.createIcons();
+
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('waitlist')
+                        .insert([{ name, email, source }])
+                        .select();
+
+                    if (error) {
+                        if (error.code === '23505') {
+                            waitlistError.textContent = "이미 사전예약이 완료된 이메일입니다.";
+                        } else {
+                            waitlistError.textContent = "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요.";
+                        }
+                        waitlistError.classList.remove('hidden');
+                        waitlistSubmit.disabled = false;
+                        waitlistSubmit.innerHTML = originalBtnText;
+                        lucide.createIcons();
+                        return;
+                    }
+
+                    // Success => fetch new count for position
+                    let position = 1;
+                    const countRes = await supabaseClient.rpc('get_waitlist_count');
+                    if (!countRes.error && countRes.data !== null) {
+                        position = countRes.data;
+                    }
+
+                    waitlistPosition.textContent = new Intl.NumberFormat('ko-KR').format(position);
+                    waitlistFormContainer.classList.add('hidden');
+                    waitlistSuccess.classList.remove('hidden');
+                    waitlistSuccess.classList.add('flex');
+
+                } catch (err) {
+                    waitlistError.textContent = "네트워크 오류가 발생했습니다.";
+                    waitlistError.classList.remove('hidden');
+                    waitlistSubmit.disabled = false;
+                    waitlistSubmit.innerHTML = originalBtnText;
+                    lucide.createIcons();
+                }
+            });
+        }
     </script>
 </body>
 </html>
