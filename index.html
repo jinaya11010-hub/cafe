@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카페브릿지 - 동네 카페가 당신의 회의실이 됩니다</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            500: '#a37161',
+                            600: '#8c5a4b',
+                            900: '#4a2f27',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Pretendard', sans-serif; }
+    </style>
+</head>
+<body class="bg-brand-50 text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-brand-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i data-lucide="coffee" class="text-brand-600"></i>
+                    <span class="font-bold text-xl text-brand-900">카페브릿지</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-brand-900 text-white overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80" alt="Cafe background" class="w-full h-full object-cover opacity-30">
+        </div>
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex flex-col items-center text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 leading-tight">
+                동네 카페가<br><span class="text-brand-100">당신의 회의실이 됩니다</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-2xl font-light">
+                비싼 공유오피스 대신, 분위기 좋은 카페에서<br class="hidden sm:block"> 생산적인 시간을 보내세요.
+            </p>
+            <a href="#calculator" class="bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-8 rounded-full text-lg transition shadow-lg inline-flex items-center gap-2">
+                가격 알아보기 <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-brand-900 mb-4">왜 카페브릿지인가요?</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">도심 속 답답한 회의실에서 벗어나, 창의력이 샘솟는 카페 공간을 합리적인 가격에 이용해보세요.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-brand-50 hover:bg-brand-100 transition duration-300 p-8 rounded-3xl text-center shadow-sm">
+                    <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+                        <i data-lucide="coins" class="text-brand-500 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-900">합리적인 가격</h3>
+                    <p class="text-gray-600">인원과 시간에 딱 맞춘 투명한 비용으로 예산을 절감하세요.</p>
+                </div>
+                <div class="bg-brand-50 hover:bg-brand-100 transition duration-300 p-8 rounded-3xl text-center shadow-sm">
+                    <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+                        <i data-lucide="map-pin" class="text-brand-500 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-900">가까운 위치</h3>
+                    <p class="text-gray-600">멀리 갈 필요 없이 동네 곳곳의 제휴 카페를 이용할 수 있습니다.</p>
+                </div>
+                <div class="bg-brand-50 hover:bg-brand-100 transition duration-300 p-8 rounded-3xl text-center shadow-sm">
+                    <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+                        <i data-lucide="sparkles" class="text-brand-500 w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-brand-900">영감 넘치는 공간</h3>
+                    <p class="text-gray-600">따뜻한 조명과 커피 향기가 있는 공간에서 몰입을 경험하세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator & Recent Section -->
+    <section id="calculator" class="py-24 bg-brand-50 border-t border-brand-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-brand-900 mb-4">예상 견적 확인하기</h2>
+                <p class="text-gray-600">조건을 선택하시면 실시간으로 예상 가격을 확인할 수 있습니다.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Calculator -->
+                <div class="lg:col-span-2 bg-white rounded-3xl shadow-xl p-6 sm:p-10 border border-brand-100">
+                    <h2 class="text-2xl font-bold text-brand-900 mb-8 flex items-center gap-2">
+                        <i data-lucide="calculator" class="text-brand-500"></i>
+                        가격 계산기
+                    </h2>
+                    
+                    <form id="calcForm" class="space-y-8">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">공간 유형</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="spaceType" value="lounge" class="peer sr-only" checked>
+                                    <div class="text-center p-4 rounded-2xl border-2 border-gray-100 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 transition hover:bg-gray-50 hover:border-gray-200">
+                                        <i data-lucide="sofa" class="mx-auto mb-2 w-6 h-6 text-gray-400 peer-checked:text-brand-500"></i>
+                                        <span class="text-sm font-bold block">카페 라운지</span>
+                                        <span class="text-xs text-gray-500 font-normal mt-1 block">시간당 2,000원/인</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="spaceType" value="study" class="peer sr-only">
+                                    <div class="text-center p-4 rounded-2xl border-2 border-gray-100 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 transition hover:bg-gray-50 hover:border-gray-200">
+                                        <i data-lucide="book-open" class="mx-auto mb-2 w-6 h-6 text-gray-400 peer-checked:text-brand-500"></i>
+                                        <span class="text-sm font-bold block">스터디룸</span>
+                                        <span class="text-xs text-gray-500 font-normal mt-1 block">시간당 3,000원/인</span>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="spaceType" value="rooftop" class="peer sr-only">
+                                    <div class="text-center p-4 rounded-2xl border-2 border-gray-100 peer-checked:border-brand-500 peer-checked:bg-brand-50 peer-checked:text-brand-700 transition hover:bg-gray-50 hover:border-gray-200">
+                                        <i data-lucide="sun" class="mx-auto mb-2 w-6 h-6 text-gray-400 peer-checked:text-brand-500"></i>
+                                        <span class="text-sm font-bold block">루프탑</span>
+                                        <span class="text-xs text-gray-500 font-normal mt-1 block">시간당 4,000원/인</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-2 gap-8">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-3 flex items-center justify-between">
+                                    <span>인원 수 (명)</span>
+                                    <span class="text-brand-500 text-xs font-normal bg-brand-50 px-2 py-1 rounded">2~20명</span>
+                                </label>
+                                <div class="flex items-center">
+                                    <input type="range" id="peopleRange" min="2" max="20" value="4" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                                    <span id="peopleVal" class="ml-4 font-bold text-brand-900 w-8 text-right">4명</span>
+                                </div>
+                                <input type="hidden" name="people" id="people" value="4">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-3 flex items-center justify-between">
+                                    <span>이용 시간 (시간)</span>
+                                    <span class="text-brand-500 text-xs font-normal bg-brand-50 px-2 py-1 rounded">1~5시간</span>
+                                </label>
+                                <div class="flex items-center">
+                                    <input type="range" id="hoursRange" min="1" max="5" value="2" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-brand-500">
+                                    <span id="hoursVal" class="ml-4 font-bold text-brand-900 w-10 text-right">2시간</span>
+                                </div>
+                                <input type="hidden" name="hours" id="hours" value="2">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-3">이용 요일</label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center gap-2 cursor-pointer bg-gray-50 px-4 py-3 rounded-xl border border-gray-200 flex-1 hover:bg-gray-100 transition has-[:checked]:bg-brand-50 has-[:checked]:border-brand-300">
+                                    <input type="radio" name="dayType" value="weekday" class="text-brand-600 focus:ring-brand-500 w-4 h-4" checked>
+                                    <span class="font-medium text-gray-700">평일</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer bg-gray-50 px-4 py-3 rounded-xl border border-gray-200 flex-1 hover:bg-gray-100 transition has-[:checked]:bg-brand-50 has-[:checked]:border-brand-300">
+                                    <input type="radio" name="dayType" value="weekend" class="text-brand-600 focus:ring-brand-500 w-4 h-4">
+                                    <span class="font-medium text-gray-700">주말/공휴일 <span class="text-xs text-brand-500 font-bold ml-1">(20% 할증)</span></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="pt-8 border-t border-gray-100">
+                            <div class="flex flex-col sm:flex-row justify-between items-center sm:items-end gap-4 mb-6">
+                                <div class="text-center sm:text-left">
+                                    <p class="text-sm font-medium text-gray-500 mb-1">예상 총 금액</p>
+                                    <p class="text-4xl font-extrabold text-brand-900" id="totalPrice">0원</p>
+                                </div>
+                                <button type="button" id="saveBtn" class="bg-white border-2 border-brand-900 text-brand-900 hover:bg-brand-900 hover:text-white px-6 py-3 rounded-xl font-bold transition shadow-sm flex items-center gap-2 w-full sm:w-auto justify-center">
+                                    견적 저장 <i data-lucide="bookmark-plus" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                            <button type="button" class="w-full bg-brand-500 hover:bg-brand-600 text-white py-4 rounded-xl font-bold text-lg transition shadow-xl shadow-brand-500/30 flex justify-center items-center gap-2 transform hover:-translate-y-0.5">
+                                이 조건으로 문의하기 <i data-lucide="send-h" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Recent Quotes -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-3xl shadow-xl p-6 border border-brand-100 h-full flex flex-col">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-lg font-bold text-brand-900 flex items-center gap-2">
+                                <i data-lucide="history" class="text-brand-500 w-5 h-5"></i>
+                                최근 본 견적
+                            </h3>
+                            <span class="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-1 rounded-md">최대 5개</span>
+                        </div>
+                        <div id="recentList" class="space-y-3 flex-1 overflow-y-auto">
+                            <!-- JS will populate -->
+                            <div class="flex flex-col items-center justify-center h-full text-gray-400 py-12">
+                                <i data-lucide="inbox" class="w-10 h-10 mb-3 text-gray-200"></i>
+                                <p class="text-sm">기록된 견적이 없습니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-24 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-brand-900 mb-4">자주 묻는 질문</h2>
+                <p class="text-gray-600">궁금하신 점을 빠르게 확인해보세요.</p>
+            </div>
+            <div class="space-y-4">
+                <details class="group border border-brand-100 rounded-2xl bg-brand-50 overflow-hidden open:bg-white transition-all shadow-sm">
+                    <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-6 text-brand-900 group-open:text-brand-600">
+                        <span class="flex items-center gap-3"><i data-lucide="help-circle" class="w-5 h-5 text-brand-300"></i> 외부 음식 반입이 가능한가요?</span>
+                        <span class="transition-transform duration-300 group-open:rotate-180 text-brand-500">
+                            <i data-lucide="chevron-down"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-600 p-6 pt-0 border-t border-brand-50 leading-relaxed mt-2">
+                        기본적으로 제휴 카페의 음료를 1인 1주문 해주셔야 하며, 냄새가 나지 않는 간단한 다과류는 호스트(카페)의 사전 동의 하에 반입 가능합니다.
+                    </div>
+                </details>
+                <details class="group border border-brand-100 rounded-2xl bg-brand-50 overflow-hidden open:bg-white transition-all shadow-sm">
+                    <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-6 text-brand-900 group-open:text-brand-600">
+                        <span class="flex items-center gap-3"><i data-lucide="help-circle" class="w-5 h-5 text-brand-300"></i> 보증금이나 취소 수수료가 있나요?</span>
+                        <span class="transition-transform duration-300 group-open:rotate-180 text-brand-500">
+                            <i data-lucide="chevron-down"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-600 p-6 pt-0 border-t border-brand-50 leading-relaxed mt-2">
+                        이용일 기준 3일 전까지는 100% 환불 가능하며, 이후로는 규정에 따라 수수료가 발생합니다. 별도의 보증금은 없습니다.
+                    </div>
+                </details>
+                <details class="group border border-brand-100 rounded-2xl bg-brand-50 overflow-hidden open:bg-white transition-all shadow-sm">
+                    <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-6 text-brand-900 group-open:text-brand-600">
+                        <span class="flex items-center gap-3"><i data-lucide="help-circle" class="w-5 h-5 text-brand-300"></i> 프로젝터나 화이트보드 대여가 되나요?</span>
+                        <span class="transition-transform duration-300 group-open:rotate-180 text-brand-500">
+                            <i data-lucide="chevron-down"></i>
+                        </span>
+                    </summary>
+                    <div class="text-gray-600 p-6 pt-0 border-t border-brand-50 leading-relaxed mt-2">
+                        스터디룸 옵션을 선택하시면 기본적으로 화이트보드가 제공되며, 프로젝터는 지점별로 상이하므로 문의 시 확인해 드립니다.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-900 text-brand-50 py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
+                <div class="flex flex-col items-center md:items-start gap-4">
+                    <div class="flex items-center gap-2 text-white">
+                        <i data-lucide="coffee" class="w-8 h-8"></i>
+                        <span class="font-bold text-3xl tracking-tight">카페브릿지</span>
+                    </div>
+                    <p class="text-brand-200 text-sm">동네 카페가 당신의 회의실이 됩니다.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-8 sm:gap-12 text-center md:text-left">
+                    <div>
+                        <h4 class="font-bold text-white mb-4">Contact</h4>
+                        <ul class="space-y-3 text-sm text-brand-200">
+                            <li><a href="mailto:hello@cafebridge.com" class="hover:text-white transition flex items-center justify-center md:justify-start gap-2"><i data-lucide="mail" class="w-4 h-4"></i> hello@cafebridge.com</a></li>
+                            <li><span class="flex items-center justify-center md:justify-start gap-2"><i data-lucide="phone" class="w-4 h-4"></i> 02-1234-5678</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white mb-4">Social</h4>
+                        <ul class="space-y-3 text-sm text-brand-200">
+                            <li><a href="#" class="hover:text-white transition flex items-center justify-center md:justify-start gap-2"><i data-lucide="instagram" class="w-4 h-4"></i> @cafebridge_kr</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-brand-800 flex flex-col md:flex-row justify-between items-center gap-4 text-brand-300 text-xs">
+                <p>&copy; 2026 CafeBridge. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition">이용약관</a>
+                    <a href="#" class="hover:text-white transition">개인정보처리방침</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const prices = {
+            lounge: 2000,
+            study: 3000,
+            rooftop: 4000
+        };
+
+        const names = {
+            lounge: '카페 라운지',
+            study: '스터디룸',
+            rooftop: '루프탑'
+        };
+
+        const form = document.getElementById('calcForm');
+        const priceDisplay = document.getElementById('totalPrice');
+        const recentList = document.getElementById('recentList');
+        const saveBtn = document.getElementById('saveBtn');
+        const peopleRange = document.getElementById('peopleRange');
+        const peopleVal = document.getElementById('peopleVal');
+        const peopleInput = document.getElementById('people');
+        const hoursRange = document.getElementById('hoursRange');
+        const hoursVal = document.getElementById('hoursVal');
+        const hoursInput = document.getElementById('hours');
+
+        // Sync Range and Hidden Input
+        peopleRange.addEventListener('input', (e) => {
+            peopleVal.textContent = e.target.value + '명';
+            peopleInput.value = e.target.value;
+            updateDisplay();
+        });
+
+        hoursRange.addEventListener('input', (e) => {
+            hoursVal.textContent = e.target.value + '시간';
+            hoursInput.value = e.target.value;
+            updateDisplay();
+        });
+
+
+        function calculatePrice() {
+            const formData = new FormData(form);
+            const spaceType = formData.get('spaceType');
+            const people = parseInt(formData.get('people')) || 2;
+            const hours = parseInt(formData.get('hours')) || 1;
+            const dayType = formData.get('dayType');
+
+            let basePrice = prices[spaceType] * people * hours;
+            if (dayType === 'weekend') {
+                basePrice *= 1.2;
+            }
+
+            return {
+                spaceType,
+                people,
+                hours,
+                dayType,
+                total: Math.round(basePrice)
+            };
+        }
+
+        // Animate counter
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const currentVal = Math.floor(progress * (end - start) + start);
+                obj.textContent = new Intl.NumberFormat('ko-KR').format(currentVal) + '원';
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.textContent = new Intl.NumberFormat('ko-KR').format(end) + '원';
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        let lastTotal = 0;
+        function updateDisplay() {
+            const data = calculatePrice();
+            if (lastTotal !== data.total) {
+                animateValue(priceDisplay, lastTotal, data.total, 300);
+                lastTotal = data.total;
+            }
+        }
+
+        function loadRecent() {
+            const stored = JSON.parse(localStorage.getItem('cafebridge_recent') || '[]');
+            if (stored.length === 0) {
+                recentList.innerHTML = `
+                    <div class="flex flex-col items-center justify-center h-full text-gray-400 py-12">
+                        <i data-lucide="inbox" class="w-10 h-10 mb-3 text-gray-200"></i>
+                        <p class="text-sm">기록된 견적이 없습니다.</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            recentList.innerHTML = stored.map(item => `
+                <div class="p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition group">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="p-1.5 bg-brand-50 text-brand-600 rounded-lg">
+                                \${item.spaceType === 'lounge' ? '<i data-lucide="sofa" class="w-4 h-4"></i>' : 
+                                  item.spaceType === 'study' ? '<i data-lucide="book-open" class="w-4 h-4"></i>' : 
+                                  '<i data-lucide="sun" class="w-4 h-4"></i>'}
+                            </span>
+                            <span class="text-sm font-bold text-gray-800">\${names[item.spaceType]}</span>
+                        </div>
+                        <span class="text-sm font-extrabold text-brand-600">\${new Intl.NumberFormat('ko-KR').format(item.total)}원</span>
+                    </div>
+                    <div class="text-xs text-gray-500 flex justify-between items-center bg-gray-50 p-2 rounded-lg">
+                        <span>\${item.people}명 · \${item.hours}시간 · \${item.dayType === 'weekday' ? '평일' : '주말'}</span>
+                        <span class="text-gray-400 font-medium">\${item.date}</span>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function saveRecent() {
+            const data = calculatePrice();
+            const now = new Date();
+            data.date = \`\${now.getMonth()+1}/\${now.getDate()} \${now.getHours()}:\${String(now.getMinutes()).padStart(2, '0')}\`;
+            
+            let stored = JSON.parse(localStorage.getItem('cafebridge_recent') || '[]');
+            stored.unshift(data);
+            if (stored.length > 5) {
+                stored = stored.slice(0, 5);
+            }
+            
+            localStorage.setItem('cafebridge_recent', JSON.stringify(stored));
+            loadRecent();
+
+            // button feedback
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '저장 완료 <i data-lucide="check" class="w-4 h-4"></i>';
+            saveBtn.classList.add('bg-brand-900', 'text-white');
+            saveBtn.classList.remove('bg-white', 'text-brand-900');
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                saveBtn.innerHTML = originalText;
+                saveBtn.classList.remove('bg-brand-900', 'text-white');
+                saveBtn.classList.add('bg-white', 'text-brand-900');
+                lucide.createIcons();
+            }, 2000);
+        }
+
+        // Event Listeners
+        form.addEventListener('change', updateDisplay); // For radio buttons
+        saveBtn.addEventListener('click', saveRecent);
+
+        // Init
+        updateDisplay();
+        loadRecent();
+    </script>
+</body>
+</html>
