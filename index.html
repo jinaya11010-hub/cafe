@@ -638,10 +638,9 @@
                 lucide.createIcons();
 
                 try {
-                    const { data, error } = await supabaseClient
+                    const { error } = await supabaseClient
                         .from('waitlist')
-                        .insert([{ name, email, source }])
-                        .select();
+                        .insert([{ name, email, source }]);
 
                     if (error) {
                         if (error.code === '23505') {
