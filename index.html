@@ -4,11 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>카페브릿지 - 동네 카페가 당신의 회의실이 됩니다</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="비싼 공유오피스 대신, 분위기 좋은 동네 카페에서 생산적인 시간을 보내세요. 시간당/인원별 합리적인 가격 예약, 카페브릿지.">
+    <meta name="keywords" content="카페대관, 스터디룸, 회의실, 미팅룸, 공유오피스장점, 라운지, 공간대여, 카페브릿지">
+    <meta name="author" content="CafeBridge">
+    
+    <!-- Open Graph / KakaoTalk Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cafebridge.com/">
+    <meta property="og:title" content="카페브릿지 - 모임 공간, 동네 카페에서 찾으세요">
+    <meta property="og:description" content="합리적인 가격으로 내 주변 분위기 좋은 카페, 스터디룸, 루프탑을 예약하세요.">
+    <!-- Unsplash image sized for OpenGraph (1200x630) -->
+    <meta property="og:image" content="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&h=630&q=80">
+    
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://cafebridge.com/">
+    <meta name="twitter:title" content="카페브릿지 - 동네 카페가 당신의 회의실이 됩니다">
+    <meta name="twitter:description" content="비싼 공유오피스 대신, 합리적인 가격으로 내 주변 쾌적한 카페 공간을 이용해보세요.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&h=630&q=80">
+    
+    <!-- Theme Settings -->
+    <meta name="theme-color" content="#fdf8f6" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#1f2937" media="(prefers-color-scheme: dark)">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
     <script>
+        // 초기 다크모드 설정 (깜빡임 방지)
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -30,17 +62,37 @@
     <style>
         html { scroll-behavior: smooth; }
         body { font-family: 'Pretendard', sans-serif; }
+        
+        /* 다크모드 커스텀 스타일 지원 */
+        html.dark .bg-brand-50 { background-color: #1f2937 !important; }
+        html.dark .bg-white { background-color: #111827 !important; }
+        html.dark .bg-white\/80 { background-color: rgba(17, 24, 39, 0.8) !important; }
+        html.dark .bg-gray-50 { background-color: #374151 !important; }
+        html.dark .text-brand-900 { color: #f8fafc !important; }
+        html.dark .text-gray-800, html.dark .text-gray-700 { color: #e2e8f0 !important; }
+        html.dark .text-gray-600 { color: #94a3b8 !important; }
+        html.dark .border-brand-100, html.dark .border-gray-100, html.dark .border-gray-200, html.dark .border-brand-50 { border-color: #334155 !important; }
+        html.dark .bg-gray-100 { background-color: #334155 !important; }
+        html.dark .hover\:bg-brand-100:hover { background-color: #374151 !important; }
+        html.dark .has-\[\:checked\]\:bg-brand-50:has(:checked) { background-color: #1f2937 !important; border-color: #a37161 !important; }
+        html.dark .peer-checked\:bg-brand-50:checked ~ div { background-color: #1f2937 !important; border-color: #a37161 !important; }
+        html.dark .peer-checked\:text-brand-700:checked ~ div { color: #f8fafc !important; text-shadow: none; }
     </style>
 </head>
-<body class="bg-brand-50 text-gray-800">
+<body class="bg-brand-50 text-gray-800 transition-colors duration-300">
     <!-- Navbar -->
-    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-brand-100">
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-brand-100 transition-colors duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex-shrink-0 flex items-center gap-2">
                     <i data-lucide="coffee" class="text-brand-600"></i>
                     <span class="font-bold text-xl text-brand-900">카페브릿지</span>
                 </div>
+                <!-- Theme Toggle Button -->
+                <button id="themeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="다크모드 토글">
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-brand-400"></i>
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-brand-600"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -409,17 +461,17 @@
                     <div class="flex justify-between items-start mb-2">
                         <div class="flex items-center gap-2">
                             <span class="p-1.5 bg-brand-50 text-brand-600 rounded-lg">
-                                \${item.spaceType === 'lounge' ? '<i data-lucide="sofa" class="w-4 h-4"></i>' : 
+                                ${item.spaceType === 'lounge' ? '<i data-lucide="sofa" class="w-4 h-4"></i>' : 
                                   item.spaceType === 'study' ? '<i data-lucide="book-open" class="w-4 h-4"></i>' : 
                                   '<i data-lucide="sun" class="w-4 h-4"></i>'}
                             </span>
-                            <span class="text-sm font-bold text-gray-800">\${names[item.spaceType]}</span>
+                            <span class="text-sm font-bold text-gray-800">${names[item.spaceType]}</span>
                         </div>
-                        <span class="text-sm font-extrabold text-brand-600">\${new Intl.NumberFormat('ko-KR').format(item.total)}원</span>
+                        <span class="text-sm font-extrabold text-brand-600">${new Intl.NumberFormat('ko-KR').format(item.total)}원</span>
                     </div>
                     <div class="text-xs text-gray-500 flex justify-between items-center bg-gray-50 p-2 rounded-lg">
-                        <span>\${item.people}명 · \${item.hours}시간 · \${item.dayType === 'weekday' ? '평일' : '주말'}</span>
-                        <span class="text-gray-400 font-medium">\${item.date}</span>
+                        <span>${item.people}명 · ${item.hours}시간 · ${item.dayType === 'weekday' ? '평일' : '주말'}</span>
+                        <span class="text-gray-400 font-medium">${item.date}</span>
                     </div>
                 </div>
             `).join('');
@@ -429,7 +481,7 @@
         function saveRecent() {
             const data = calculatePrice();
             const now = new Date();
-            data.date = \`\${now.getMonth()+1}/\${now.getDate()} \${now.getHours()}:\${String(now.getMinutes()).padStart(2, '0')}\`;
+            data.date = `${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
             
             let stored = JSON.parse(localStorage.getItem('cafebridge_recent') || '[]');
             stored.unshift(data);
@@ -458,6 +510,14 @@
         // Event Listeners
         form.addEventListener('change', updateDisplay); // For radio buttons
         saveBtn.addEventListener('click', saveRecent);
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        themeToggleBtn.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
 
         // Init
         updateDisplay();
